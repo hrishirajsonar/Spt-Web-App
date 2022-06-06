@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout.xhtml">
+
+    <ui:define name="Center">
+        <h2 style="font-weight:normal">JSF add data to data table example.</h2>
+
+        <h:form>
+            <p:dataTable value="#{internController.interns}" var="intern"
+                         paginator="true" paginatorPosition="bottom"
+                         rowIndexVar="rowIndex" rows="5" style="border: 1px solid"
+                         rowKey="#{intern.name}" selectionMode="single"
+                         sortMode="single" emptyMessage="No data found">
+                <p:column field="name" headerText="Name" sortBy="#{intern.name}" filterBy="#{intern.name}">
+                    <!--<h:outputText value="{intern.name}" />-->
+                    <f:facet name="header">Name</f:facet>   	
+                        #{intern.name}
+                </p:column>
+
+                <p:column field="rollNo" headerText="Roll Number" sortBy="#{intern.rollNo}" filterBy="#{intern.rollNo}">
+                    <!--<h:outputText value="{intern.rollNo}" />-->
+                    <f:facet name="header">Roll Num</f:facet>   	
+                        #{intern.rollNo}
+                </p:column>
+
+                <p:column field="age" headerText="Age" sortBy="#{intern.age}" filterBy="#{intern.age}">
+                    <f:facet name="header">Age</f:facet>   	
+                        #{intern.age}
+                </p:column>
+            </p:dataTable>
+
+            <h2 style="font-weight:normal">Add Intern</h2>
+            <hr/>
+            <h:panelGrid columns ="2">
+                <p:outputLabel value="Name" />
+                <p:inputText value="#{internController.name}" />
+                <p:outputLabel value="Roll number" />
+                <p:inputText value="#{internController.rollNo}" />
+                <p:outputLabel value="Age" />
+                <p:inputText value="#{internController.age}" />
+                <p:commandButton value="Add Intern" action="#{internController.addIntern()}" update="@form" />
+            </h:panelGrid>
+
+            <br/><br/>
+            <p:button outcome="ajax.xhtml" value="ajax"  target="_blank"/>
+            <h:commandLink action="ajax.xhtml" value="ajax" target="_blank" />
+            <p:commandLink action="ajax.xhtml" value="ajax" target="_blank" ajax="false" />
+
+            <br/>
+
+            <p:panelMenu style="width:200px " styleClass="ui-menubar">
+                <p:submenu label="Ajax Menuitems">                      
+                    <p:menuitem value="ajax" 
+                                action ="ajax.xhtml" target="_blank" ajax="false" />  
+                    <p:menuitem value="growl" 
+                                action ="growl.xhtml" target="_blank" ajax="false"/>
+                    <p:menuitem value="add data to dataTable" 
+                                action ="intern.xhtml" target="_blank" ajax="false" />
+                    <p:menuitem value="edit data in dataTable" 
+                                action ="student.xhtml" target="_blank" ajax="false"/>
+                    <p:menuitem value="edit data in dataTable" 
+                                action ="student.xhtml" target="_blank" ajax="false"/>
+                    <p:menuitem value="accordion" 
+                                action ="accordion.xhtml" target="_blank" ajax="false"/>
+                    <p:menuitem value="accordion" 
+                                action ="accordion.xhtml" target="_blank" ajax="false"/>
+                    <p:menuitem value="menu" 
+                                action ="menu.xhtml" target="_blank" ajax="false"/>
+                </p:submenu>    
+            </p:panelMenu>
+        </h:form>
+    </ui:define>
+</ui:composition>

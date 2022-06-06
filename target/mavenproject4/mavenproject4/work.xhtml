@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/mavenproject4/layout.xhtml">
+    <ui:define name="Center">
+        <h:form id="frm_user_stories">
+            <h:panelGrid>
+                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">Current Stories</h2>
+            </h:panelGrid>
+
+            <p:dataTable id="dt2" value="#{story2Controller.developerStoryList}" var="s" style="margin:14px 0px;">
+                <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
+                    <f:facet name="header">Id</f:facet>   	
+                        #{s.id}
+                </p:column>
+
+                <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
+                    <f:facet name="header">Status</f:facet>   	
+                        #{s.status}
+                </p:column>
+
+                <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                    <f:facet name="header">Points</f:facet>   	
+                        #{s.points}
+                </p:column>
+
+                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
+                    <f:facet name="header">Developer</f:facet>   	
+                        #{s.developer}
+                </p:column>
+
+                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
+                    <f:facet name="header">Reviewer</f:facet>   	
+                        #{s.reviewer}
+                </p:column>
+
+                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
+                    <f:facet name="header">Requestor</f:facet>   	
+                        #{s.requestor}
+                </p:column>
+
+                <p:column headerText="Action" id="action">
+                    <p:commandButton id = "btn_edit" oncomplete="PF('sample').show();" icon="pi pi-pencil" style="margin-right: 10px;" />
+                    <p:commandButton id = "btn_change_status" icon="pi pi-trash" actionListener="#{story2Controller.deleteStory(s.id)}" update="@form :frm_stories:dt2 :frm_stories:growl">
+                        <p:confirm header="Confirmation" message="Do you want to delete this story?" icon="pi pi-info-circle"/>
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                    </p:confirmDialog>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

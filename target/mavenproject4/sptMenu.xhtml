@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/layout.xhtml">
+    <h:head>
+        <title>Menu</title>
+        <met name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar>
+                    <p:menuitem value="Developer" action ="accordion.xhtml" />
+                    <p:menuitem value="Reviewer" action ="growl.xhtml" ajax="false" />
+                    <p:menuitem value="Requestor" action ="ajax.xhtml" ajax="false" />
+                    <p:submenu label="Users" icon="pi pi-fw pi-user">
+                        <p:menuitem value="View All Users" />
+                        <p:menuitem value="Add User"  />
+                        <p:menuitem value="Edit User" />
+                    </p:submenu>
+                </p:menubar>
+            </h:form>
+        </div>
+    </body>
+</html>

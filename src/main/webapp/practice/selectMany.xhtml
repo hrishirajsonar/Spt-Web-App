@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout.xhtml">
+
+    <ui:define name="Center">
+        <h:form>
+            <p:outputLabel>Mobile Names</p:outputLabel>
+            <p:selectManyMenu value="#{countryController.countries}">
+                <f:selectItem itemValue="Nokia" itemLabel="Nokia" />
+                <f:selectItem itemValue="Samsung" itemLabel="Samsung" />
+                <f:selectItem itemValue="Blackberry" itemLabel="Blackberry" />
+                <f:selectItem itemValue="Sony" itemLabel="Sony" />
+                <f:selectItem itemValue="Mi3" itemLabel="Mi3" />
+            </p:selectManyMenu>
+
+            <h:commandButton value="Submit" action="details" />
+            <h:commandButton value="Reset" type="reset"></h:commandButton>
+
+            <hr/>
+            <p:outputLabel>Advanced</p:outputLabel>
+            <p:selectOneMenu id="advanced" value="{countryController.countries}" >
+                <f:selectItems value="{countryController.countries}" var="c" itemLabel="SelectOne"/>
+                <p:column>
+                    <h:outputText value="{c.name}"/>
+                </p:column>
+            </p:selectOneMenu>>
+        </h:form>
+    </ui:define>
+</ui:composition>

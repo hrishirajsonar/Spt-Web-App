@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+        <title>SPT</title>
+    </h:head>
+    <h:body>
+
+        <style>
+            .ui-layout-north {
+                z-index:40 !important;
+                overflow:visible !important;
+            }
+
+            #lp_south{
+                text-align: center;
+                background-color: #2AEEF5;
+            }
+
+        </style>
+
+        <pe:layout id="fullPage" fullPage="true" widgetVar="LayoutWidget">
+
+            <pe:layoutPane position="north" id="lp_north"  closable="false" styleContent="ui-layout-north">
+                <ui:include src="sptMenu.xhtml" />
+            </pe:layoutPane>
+
+            <pe:layoutPane position="center"  id = "lp_center" closable="false" resizable="true">
+                <ui:insert name="Center"/>
+            </pe:layoutPane>
+
+            <pe:layoutPane position="west"  id="lp_west" closable="true" resizable="true" initClosed="true">
+                <ui:insert name="West">
+                    West
+                </ui:insert>    
+            </pe:layoutPane>
+
+            <pe:layoutPane position="east"  id="lp_east" closable="true" resizable="true" initClosed="true">
+                <ui:insert name="East">
+                    East
+                </ui:insert>   
+            </pe:layoutPane>
+
+            <pe:layoutPane position="south"  id="lp_south" closable="false" size="30"
+                           styleContent="ui-layout-south">
+                <ui:insert name="South">
+                    Copyright © Project Management System 2022
+                </ui:insert>   
+            </pe:layoutPane>
+        </pe:layout>
+    </h:body>
+</html>

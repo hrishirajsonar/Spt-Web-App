@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/mavenproject4/layout.xhtml">
+    <h:head>
+        <title>Index Menu</title>
+        <met name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar style="background: #9BC6EA;">
+                    <p:menuitem value="Home" action ="/faces/mavenproject4/index.xhtml?faces-redirect=true" icon="pi pi-home" />
+                    <p:menuitem value="Manage Stories" action ="/faces/mavenproject4/manage.xhtml?faces-redirect=true" icon="pi pi-cog" />
+                    <p:menuitem value="Work on Stories" action ="/faces/mavenproject4/work.xhtml?faces-redirect=true" icon="pi pi-pencil" />
+                    <p:menuitem value="Review Stories" action ="/faces/mavenproject4/review.xhtml?faces-redirect=true" ajax="false" icon="pi pi-thumbs-up" />
+
+                    <p:divider layout="vertical"/>
+
+                    <f:facet name="options">
+                        <p:outputLabel value="Logged in as #{employeeController.loggedInUser.username}"
+                                       style="position: relative; right: 20px; color: #454545;"/>
+                    </f:facet>
+                    <f:facet name="options">
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{employeeController.logout()}" styleClass="ui-button-info" style="margin-left: 11px;"/>
+                    </f:facet>
+                </p:menubar>
+
+
+            </h:form>
+        </div>
+    </body>
+</html>

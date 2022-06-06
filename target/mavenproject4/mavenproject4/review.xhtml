@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/mavenproject4/layout.xhtml">
+    <ui:define name="Center">
+        <h:form id="frm_user_stories">
+            <h:panelGrid>
+                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">Current Stories</h2>
+            </h:panelGrid>
+
+            <p:dataTable id="dt2" value="#{story2Controller.reviewerStoryList}" var="s" style="margin:14px 0px;">
+                <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
+                    <f:facet name="header">Id</f:facet>   	
+                        #{s.id}
+                </p:column>
+
+                <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
+                    <f:facet name="header">Status</f:facet>   	
+                        #{s.status}
+                </p:column>
+
+                <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                    <f:facet name="header">Points</f:facet>   	
+                        #{s.points}
+                </p:column>
+
+                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
+                    <f:facet name="header">Developer</f:facet>   	
+                        #{s.developer}
+                </p:column>
+
+                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
+                    <f:facet name="header">Reviewer</f:facet>   	
+                        #{s.reviewer}
+                </p:column>
+
+                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
+                    <f:facet name="header">Requestor</f:facet>   	
+                        #{s.requestor}
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

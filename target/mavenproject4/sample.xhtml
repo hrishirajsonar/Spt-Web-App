@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/layout.xhtml">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1 style="background-color: buttonface; color: tomato; font-family:courier; text-align: center">Hello index.xhtml</h1>
+
+        <h:form>
+            <h:outputLabel for="txtName">
+                <h:outputText value="Enter name: "/>
+            </h:outputLabel>
+            <h:inputText id="txtName" value="hrishi" required="false"/>
+            <br/>
+
+            <h:outputLabel for="txtAge">
+                <h:outputText value="Enter age: "/>
+            </h:outputLabel>
+            <h:inputText id="txtAge" value="178" required="true" requiredMessage="age is required"/>
+            <br/>
+
+            <!--<h:outputText value="{obj.setAge(11)}"/>-->
+
+            <h:outputLabel for="txtScore">
+                <h:outputText value="Enter Score"/>
+            </h:outputLabel>
+            <h:inputText id="txtScore" value="9.9" required="false"/>
+
+            <!--<h:commandButton id="cmdButton" value="Add items" action="{obj.add}"/>-->
+
+            <h5>Basic</h5>
+            <p:inputText/>
+
+            <h5>Floating Label</h5>
+            <span class="ui-float-label">
+                <p:inputText id="float-input" value="" />
+                <p:outputLabel for="@previous" value="Username"/>
+
+            </span>
+
+            <h5>Left Icon</h5>
+            <span class="ui-input-icon-left">
+                <i class="pi pi-search" />
+                <p:inputText placeholder="Search" />
+            </span>
+            <br></br>
+            <br></br>
+
+            <p:outputLabel id="a1" value="Employee" for="a2"/>
+            <p:selectOneMenu id="a2" >
+                <f:selectItem itemLabel="Select one ---" itemValue="" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Developer" itemValue="Option1"/>
+                <f:selectItem itemLabel="Reviewer" itemValue="Option2"/>
+                <f:selectItem itemLabel="Requestor" itemValue="Option3"/>
+            </p:selectOneMenu>
+
+        </h:form>
+        
+         <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{crudView.products}"
+                     reflow="true" styleClass="products-table"
+                     selection="#{crudView.selectedProducts}" rowKey="#{product.id}" paginator="true"
+                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            <f:facet name="header">
+                <div class="products-table-header">
+                    <span style="font-weight: bold">PRODUCTS</span>
+
+                    <span class="filter-container ui-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search"/>
+                    </span>
+
+                </div>
+            </f:facet>
+
+            <p:ajax event="rowSelect" update=":form:delete-products-button"/>
+            <p:ajax event="rowUnselect" update=":form:delete-products-button"/>
+            <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button"/>
+            <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button"/>
+            <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
+
+            <p:column selectionMode="multiple" exportable="false"></p:column>
+
+            <p:column headerText="Code" sortBy="#{product.code}" filterBy="#{product.code}">
+                <h:outputText value="#{product.code}"/>
+            </p:column>
+            <p:column headerText="Name" sortBy="#{product.name}" filterBy="#{product.name}">
+                <h:outputText value="#{product.name}"/>
+            </p:column>
+            <p:column headerText="Image" exportable="false">
+                <p:graphicImage name="images/product/#{product.image}" library="demo"
+                                styleClass="product-image"/>
+            </p:column>
+            <p:column headerText="Price" sortBy="#{product.price}">
+                <h:outputText value="#{product.price}" style="font-weight: 700">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Category" sortBy="#{product.category}" filterBy="#{product.category}">
+                <h:outputText value="#{product.category}"/>
+            </p:column>
+            <p:column headerText="Reviews" sortBy="#{product.rating}">
+                <p:rating value="#{product.rating}" readonly="true"/>
+            </p:column>
+            <p:column headerText="Status" sortBy="#{product.inventoryStatus}"
+                      filterBy="#{product.inventoryStatus}">
+                <h:outputText styleClass="product-badge status-#{product.inventoryStatus.name().toLowerCase()}"
+                              value="#{product.inventoryStatus.text}"/>
+            </p:column>
+            <p:column exportable="false">
+                <p:commandButton icon="pi pi-pencil" update=":form:manage-product-content"
+                                 oncomplete="PF('manageProductDialog').show()"
+                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
+                    <p:resetInput target=":form:manage-product-content"/>
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                 oncomplete="PF('deleteProductDialog').show()">
+                    <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+    </h:body>
+</html>

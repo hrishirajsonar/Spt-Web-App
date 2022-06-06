@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout.xhtml">
+
+    <ui:define name="Center">
+        <h2 style="font-weight:normal">JSF edit data to data table example.</h2>
+        <h:form>
+            <p:dataTable value="#{studentController.students}" var="student">
+                <p:column>
+                    <f:facet name="header">Name</f:facet>
+                    <p:inputText value="#{student.name}" rendered="#{student.editable}" />
+                    <h:outputText value="#{student.name}" rendered="#{!student.editable}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">Class</f:facet>
+                    <p:inputText value="#{student.stuClass}" rendered="#{student.editable}" />
+                    <h:outputText value="#{student.stuClass}" rendered="#{!student.editable}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">RollNo</f:facet>
+                    <p:inputText value="#{student.rollNo}"
+                                 rendered="#{student.editable}" />
+                    <h:outputText value="#{student.rollNo}"
+                                  rendered="#{!student.editable}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">Age</f:facet>
+                    <p:inputText value="#{student.age}"
+                                 rendered="#{student.editable}" />
+                    <h:outputText value="#{student.age}"
+                                  rendered="#{!student.editable}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <p:commandButton value="Edit" action="#{studentController.editStudent()}" rendered="#{!student.editable}" update="@form">
+                        <f:setPropertyActionListener target="#{studentController.student}" value="#{student}" />
+                        <!--setPropertyActionListener sets value to the backing bean-->
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="Save" action="#{studentController.saveStudents}" update="@form"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

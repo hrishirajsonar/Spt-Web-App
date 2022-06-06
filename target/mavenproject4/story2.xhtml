@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/layout.xhtml">
+    <h:head>
+        <title>Story2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <h:form>
+            <h:panelGrid columns ="2">
+                <p:outputLabel value="Status" />
+                <p:inputText value="#{story2Controller.story.status}" />
+                <p:outputLabel value="Points" />
+                <p:inputText value="#{story2Controller.story.points}" />
+                <p:outputLabel value="Developer" />
+                <p:inputText value="#{story2Controller.story.developer}" />
+                <p:outputLabel value="Reviewer" />
+                <p:inputText value="#{story2Controller.story.reviewer}" />
+                <p:outputLabel value="Requestor" />
+                <p:inputText value="#{story2Controller.story.requestor}" />
+                <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form" />
+
+            </h:panelGrid>
+
+            <br/>
+            <p:outputLabel value="Enter id to Delete Story" />
+            <h:panelGrid columns="2">
+                <p:inputText value="#{story2Controller.idToDelete}" />
+                <p:commandButton value="Delete Story" action="#{story2Controller.deleteStory()}" />
+            </h:panelGrid>
+
+            <br/>
+            <p:outputLabel value="Enter id to View Story Details" />
+            <h:panelGrid columns="2">
+                <p:inputText value="#{story2Controller.idToView}" />
+                <p:commandButton value="View Details" action="#{story2Controller.viewStory()}" update="tvStory" />
+            </h:panelGrid>   
+            <p:tabView id="tvStory" dynamic="true">
+                <p:tab title="Developer">
+                    <p:outputPanel deferred="true">
+                        <p:outputLabel id="ol1" value="#{story2Controller.story.developer}" />
+                    </p:outputPanel>
+                </p:tab>
+                <p:tab title="Reviewer">
+                    <p:outputPanel deferred="true">
+                        <p:outputLabel id="ol2" value="#{story2Controller.story.reviewer}" />                    </p:outputPanel>
+                </p:tab>
+                <p:tab title="Requestor">
+                    <p:outputPanel deferred="true">
+                        <p:outputLabel id="ol3" value="#{story2Controller.story.requestor}" />
+                    </p:outputPanel>
+                </p:tab>
+            </p:tabView>
+
+            <p:commandButton value="View All Stories" action="#{story2Controller.viewAllStories()}" update="dt2" />
+            
+            <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s">
+                <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
+                    <!--<h:outputText value="{intern.name}" />-->
+                    <f:facet name="header">Id</f:facet>   	
+                        #{s.id}
+                </p:column>
+
+                <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
+                    <!--<h:outputText value="{intern.rollNo}" />-->
+                    <f:facet name="header">Status</f:facet>   	
+                        #{s.status}
+                </p:column>
+                
+                <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                    <f:facet name="header">Points</f:facet>   	
+                        #{s.points}
+                </p:column>
+
+                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
+                    <f:facet name="header">Developer</f:facet>   	
+                        #{s.developer}
+                </p:column>
+                
+                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
+                    <f:facet name="header">Reviewer</f:facet>   	
+                        #{s.reviewer}
+                </p:column>
+                
+                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
+                    <f:facet name="header">Requestor</f:facet>   	
+                        #{s.requestor}
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </body>
+</html>
