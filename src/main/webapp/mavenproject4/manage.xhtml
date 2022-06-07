@@ -55,7 +55,7 @@ and open the template in the editor.
                 </p:column>
 
                 <p:column headerText="Action" id="action">
-                    <p:commandButton id = "btn_edit" oncomplete="PF('sample2').show();" icon="pi pi-pencil" style="margin-right: 10px;" />
+                    <p:commandButton id = "btn_edit" actionListener="#{story2Controller.beforeEdit(s)}" oncomplete="PF('sample2').show();" icon="pi pi-pencil" style="margin-right: 10px;" update="@this :frm_editStory" />
                     <p:commandButton id = "btn_delete" icon="pi pi-trash" actionListener="#{story2Controller.deleteStory(s.id)}" update="@form :frm_stories:dt2 :frm_stories:growl">
                         <p:confirm header="Confirmation" message="Do you want to delete this story?" icon="pi pi-info-circle"/>
                     </p:commandButton>
@@ -84,11 +84,10 @@ and open the template in the editor.
                         <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                     </p:selectOneMenu>
                     <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
-
                 </h:panelGrid>
             </h:form>
         </p:dialog>
-        
+
         <p:dialog header="Change Story Details" widgetVar="sample2" id="dlg_editStory">
             <h:form id="frm_editStory">
                 <h:panelGrid columns ="2">
@@ -105,7 +104,6 @@ and open the template in the editor.
                         <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                     </p:selectOneMenu>
                     <p:commandButton value="Edit story" action="#{story2Controller.editStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
-
                 </h:panelGrid>
             </h:form>
         </p:dialog>
