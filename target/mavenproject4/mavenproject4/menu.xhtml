@@ -35,6 +35,9 @@ and open the template in the editor.
                                        style="position: relative; right: 20px; color: #454545;"/>
                     </f:facet>
                     <f:facet name="options">
+                        <p:commandButton value="Register" icon="pi pi-user-plus" action ="/faces/mavenproject4/register.xhtml?faces-redirect=true" styleClass="ui-button-info" style="margin-left: 11px;"/>
+                    </f:facet>
+                    <f:facet name="options">
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{employeeController.logout()}" styleClass="ui-button-info" style="margin-left: 11px;"/>
                     </f:facet>
                 </p:menubar>

@@ -13,18 +13,19 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/mavenproject4/layout.xhtml">
     <ui:define name="Center">
-        <h:form id="frm_user_stories">
+
+        <h:form id="frm_stories">
             <h:panelGrid>
-                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">Current Stories</h2>
+                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">STORIES ASSIGNED FOR REVIEW</h2>
             </h:panelGrid>
 
-            <p:dataTable id="dt2" value="#{story2Controller.reviewerStoryList}" var="s" style="margin:14px 0px;">
+            <p:dataTable id="dt" value="#{story2Controller.reviewerStoryList}" var="s" style="margin:14px 0px;">
                 <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
                     <f:facet name="header">Id</f:facet>   	
                         #{s.id}
                 </p:column>
 
-                <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
+                <p:column field="status" headerText="Status" groupRow="true" sortBy="#{s.status}" filterBy="#{s.status}">
                     <f:facet name="header">Status</f:facet>   	
                         #{s.status}
                 </p:column>
@@ -47,6 +48,15 @@ and open the template in the editor.
                 <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
                     <f:facet name="header">Requestor</f:facet>   	
                         #{s.requestor}
+                </p:column>
+
+                <p:column headerText="Action" id="action" width="180px">
+                    <panelGrid columns="2">
+                        <p:commandButton id = "btn_accept" actionListener="#{story2Controller.beforeEdit(s)}" style="margin-right: 10px" action="#{story2Controller.acceptStory(s)}"
+                                         value="Accept" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
+                        <p:commandButton id = "btn_reject" actionListener="#{story2Controller.beforeEdit(s)}" action="#{story2Controller.rejectStory(s)}"
+                                         value="Reject" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
+                    </panelGrid>
                 </p:column>
 
             </p:dataTable>

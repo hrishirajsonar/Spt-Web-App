@@ -16,7 +16,7 @@ and open the template in the editor.
         <h:form id="frm_stories">
             <p:growl id="growl" showDetail="true" />
             <h:panelGrid>
-                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">Current Stories</h2>
+                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">STORIES ASSIGNED FOR WORK</h2>
             </h:panelGrid>
 
             <p:dataTable id="dt4" value="#{story2Controller.developerStoryList}" var="s" style="margin:14px 0px;">
@@ -51,8 +51,8 @@ and open the template in the editor.
                 </p:column>
 
                 <p:column headerText="Action" id="action">
-                    <p:commandButton id = "btn_status" actionListener="#{story2Controller.beforeEdit(s)}" action="#{story2Controller.editStatusAndButton()}"
-                                     value="Change" style="margin-right: 10px;" update="@this :frm_stories:dt4" />
+                    <p:commandButton id = "btn_status" actionListener="#{story2Controller.beforeEdit(s)}" action="#{story2Controller.editStatusDev(s)}"
+                                     value="#{story2Controller.editButtonDev(s)}" rendered = "#{story2Controller.renderButtonDev(s)}" style="margin-right: 10px;" update="@this :frm_stories:dt4" />
                 </p:column>
             </p:dataTable>
         </h:form>
