@@ -14,22 +14,33 @@ and open the template in the editor.
                 template="/mavenproject4/layout.xhtml">
     <ui:define name="Center">
         <div class="card">
-            <h:form>
+            <h:form id="form">
                 <h:panelGrid>
-                <h2 style="font-weight:normal; color: #454545; margin: 14px">Current Stories</h2>
+                    <h2 style="font-weight:normal; color: #454545; margin: 14px">CURRENT STORIES</h2>
                 </h:panelGrid>
-                
-                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;">
-                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
-                        <!--<h:outputText value="{intern.name}" />-->
+
+                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;" paginator="true" rows="10"
+                             selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}">
+                    <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":form:storyDetail"
+                            oncomplete="PF('storyDialog').show()"/>
+                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}" >
                         <f:facet name="header">Id</f:facet>   	
                             #{s.id}
                     </p:column>
 
+                    <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                        <f:facet name="header">Story Name</f:facet>   	
+                            #{s.storyName}
+                    </p:column>
+
+                    <p:column field="storyType" headerText="storyType" sortBy="#{s.storyType}" filterBy="#{s.storyType}">
+                        <f:facet name="header">Story Type</f:facet>
+                            #{s.storyType}                        
+                    </p:column>
+
                     <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
-                        <!--<h:outputText value="{intern.rollNo}" />-->
                         <f:facet name="header">Status</f:facet>   	
-                            #{s.status}
+                        <p:outputLabel style="background-color:#{story2Controller.setStatusColor(s)}" value="#{s.status}"/>
                     </p:column>
 
                     <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
@@ -51,7 +62,48 @@ and open the template in the editor.
                         <f:facet name="header">Requestor</f:facet>   	
                             #{s.requestor}
                     </p:column>
+
+                    <p:column field="requestor" headerText="Description" sortBy="#{s.description}" filterBy="#{s.description}">
+                        <f:facet name="header">Description</f:facet>   	
+                            #{s.description}
+                    </p:column>
+
+
                 </p:dataTable>
+
+                <p:dialog header="Story Detail" widgetVar="storyDialog" modal="false" showEffect="fade"
+                          hideEffect="fade" resizable="false">
+                    <p:outputPanel id="storyDetail" style="text-align:center;">
+                        <p:panelGrid columns="2" rendered="#{not empty story2Controller.story}"
+                                     columnClasses="label,value">
+                            <h:outputText value="Name:"/>
+                            <h:outputText value="#{story2Controller.story.storyName}"/>
+
+                            <h:outputText value="Type:"/>
+                            <h:outputText value="#{story2Controller.story.storyType}"/>
+                            
+                            <h:outputText value="Status:"/>
+                            <h:outputText value="#{story2Controller.story.status}"/>
+
+                            <h:outputText value="Points:"/>
+                            <h:outputText value="#{story2Controller.story.points}"/>
+
+                            <h:outputText value="Requestor:"/>
+                            <h:outputText value="#{story2Controller.story.requestor}"/>
+
+                            <h:outputText value="Developer:"/>
+                            <h:outputText value="#{story2Controller.story.developer}"/>
+
+                            <h:outputText value="Reviewer:"/>
+                            <h:outputText value="#{story2Controller.story.reviewer}"/>
+                            
+                            <h:outputText value="Description:"/>
+                            <h:outputText value="#{story2Controller.story.description}"/>
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+
+                </p:dialog>
             </h:form>
         </div>
     </ui:define>

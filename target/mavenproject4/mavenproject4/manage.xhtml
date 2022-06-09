@@ -29,6 +29,11 @@ and open the template in the editor.
                         #{s.id}
                 </p:column>
 
+                <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                    <f:facet name="header">Story Name</f:facet>   	
+                        #{s.storyName}
+                </p:column>
+
                 <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
                     <f:facet name="header">Status</f:facet>   	
                         #{s.status}
@@ -71,8 +76,27 @@ and open the template in the editor.
         <p:dialog header="Enter Story Details" widgetVar="sample" id="dlg_addStory">
             <h:form id="frm_addStory">
                 <h:panelGrid columns ="2">
+
+                    <p:outputLabel value="Story Name" />
+                    <p:inputText value="#{story2Controller.story.storyName}" />
+
+                    <p:outputLabel value="Story Type" />
+                    <p:selectOneMenu id="sel_one_type" value="#{story2Controller.story.storyType}">
+                        <f:selectItem itemLabel="Select Type" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="Feature" itemValue="Feature"/>
+                        <f:selectItem itemLabel="Bug" itemValue="Bug"/>
+                        <f:selectItem itemLabel="Chore" itemValue="Chore"/>
+                    </p:selectOneMenu>
+
                     <p:outputLabel value="Points" />
-                    <p:inputText value="#{story2Controller.story.points}" />
+                    <p:selectOneMenu id="sel_one_points" value="#{story2Controller.story.points}">
+                        <f:selectItem itemLabel="Select Points" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="0 points" itemValue="zero"/>
+                        <f:selectItem itemLabel="─ 1 point" itemValue="one"/>
+                        <f:selectItem itemLabel="═ 2 points" itemValue="two"/>
+                        <f:selectItem itemLabel="≡ 3 points" itemValue="three"/>
+                    </p:selectOneMenu>  
+                    
                     <p:outputLabel value="Developer" />
                     <p:selectOneMenu id="sel_one_dev" value="#{story2Controller.story.developer}">
                         <f:selectItem itemLabel="Select Developer" itemValue="#{null}" noSelectionOption="true"/>
@@ -83,7 +107,12 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Select Reviewer" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                     </p:selectOneMenu>
+
+                    <p:outputLabel value="Description" />
+                    <p:inputTextarea rows="4" cols="24" value="#{story2Controller.story.description}" placeholder="Add a description"/>
+
                     <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
+
                 </h:panelGrid>
             </h:form>
         </p:dialog>

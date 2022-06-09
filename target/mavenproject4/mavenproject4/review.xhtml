@@ -25,6 +25,11 @@ and open the template in the editor.
                         #{s.id}
                 </p:column>
 
+                <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                    <f:facet name="header">Story Name</f:facet>   	
+                        #{s.storyName}
+                </p:column>
+
                 <p:column field="status" headerText="Status" groupRow="true" sortBy="#{s.status}" filterBy="#{s.status}">
                     <f:facet name="header">Status</f:facet>   	
                         #{s.status}

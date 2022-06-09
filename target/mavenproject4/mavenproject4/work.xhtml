@@ -25,9 +25,14 @@ and open the template in the editor.
                         #{s.id}
                 </p:column>
 
+                <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                    <f:facet name="header"> Story Name </f:facet>   	
+                        #{s.storyName}
+                </p:column>
+
                 <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
                     <f:facet name="header">Status</f:facet>   	
-                        #{s.status}
+                    <p:outputLabel style="background-color:#{story2Controller.setStatusColor(s)}" value="#{s.status}"/>
                 </p:column>
 
                 <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
@@ -35,19 +40,9 @@ and open the template in the editor.
                         #{s.points}
                 </p:column>
 
-                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
-                    <f:facet name="header">Developer</f:facet>   	
-                        #{s.developer}
-                </p:column>
-
-                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
-                    <f:facet name="header">Reviewer</f:facet>   	
-                        #{s.reviewer}
-                </p:column>
-
-                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
-                    <f:facet name="header">Requestor</f:facet>   	
-                        #{s.requestor}
+                <p:column field="requestor" headerText="Description" filterBy="#{s.description}">
+                    <f:facet name="header">Description</f:facet>   	
+                        #{s.description}
                 </p:column>
 
                 <p:column headerText="Action" id="action">

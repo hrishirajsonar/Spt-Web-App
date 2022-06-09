@@ -65,7 +65,7 @@ public class StoryController implements Serializable {
 
     public void check() {
 
-        Story story = new Story(100L, "Started", 2, "Ram", "Ramesh", "Rabindra");
+//        Story story = new Story(100L, "Started", 2, "Ram", "Ramesh", "Rabindra");
 //        Story story1 = new Story();
 //       story1.setId(1L);
 //        story1.setStatus("Started");
