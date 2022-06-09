@@ -13,57 +13,39 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/mavenproject4/layout.xhtml">
     <ui:define name="Center">
+
+        <style type="text/css">
+            .cheap {
+                background-color: #a2f05d !important;
+                
+            }
+        </style>
         <div class="card">
             <h:form id="form">
                 <h:panelGrid>
                     <h2 style="font-weight:normal; color: #454545; margin: 14px">CURRENT STORIES</h2>
                 </h:panelGrid>
 
-                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;" paginator="true" rows="10"
-                             selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}">
+                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;" paginator="true" rows="10" paginatorPosition="bottom"
+                             selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" rowStyleClass="#{s.status eq 'Completed' ? 'cheap' : null}">
                     <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":form:storyDetail"
                             oncomplete="PF('storyDialog').show()"/>
-                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}" >
+                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}" width="60px">
                         <f:facet name="header">Id</f:facet>   	
                             #{s.id}
                     </p:column>
 
-                    <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
-                        <f:facet name="header">Story Name</f:facet>   	
-                            #{s.storyName}
-                    </p:column>
-
-                    <p:column field="storyType" headerText="storyType" sortBy="#{s.storyType}" filterBy="#{s.storyType}">
-                        <f:facet name="header">Story Type</f:facet>
-                            #{s.storyType}                        
-                    </p:column>
-
-                    <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
-                        <f:facet name="header">Status</f:facet>   	
-                        <p:outputLabel style="background-color:#{story2Controller.setStatusColor(s)}" value="#{s.status}"/>
-                    </p:column>
-
-                    <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                    <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}" width="100px">
                         <f:facet name="header">Points</f:facet>   	
                             #{s.points}
                     </p:column>
 
-                    <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
-                        <f:facet name="header">Developer</f:facet>   	
-                            #{s.developer}
+                    <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}" width="250px">
+                        <f:facet name="header">Story Name</f:facet>   	
+                            #{s.storyName}
                     </p:column>
 
-                    <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
-                        <f:facet name="header">Reviewer</f:facet>   	
-                            #{s.reviewer}
-                    </p:column>
-
-                    <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
-                        <f:facet name="header">Requestor</f:facet>   	
-                            #{s.requestor}
-                    </p:column>
-
-                    <p:column field="requestor" headerText="Description" sortBy="#{s.description}" filterBy="#{s.description}">
+                    <p:column field="description" headerText="Description" filterBy="#{s.description}">
                         <f:facet name="header">Description</f:facet>   	
                             #{s.description}
                     </p:column>
@@ -81,7 +63,7 @@ and open the template in the editor.
 
                             <h:outputText value="Type:"/>
                             <h:outputText value="#{story2Controller.story.storyType}"/>
-                            
+
                             <h:outputText value="Status:"/>
                             <h:outputText value="#{story2Controller.story.status}"/>
 
@@ -96,7 +78,7 @@ and open the template in the editor.
 
                             <h:outputText value="Reviewer:"/>
                             <h:outputText value="#{story2Controller.story.reviewer}"/>
-                            
+
                             <h:outputText value="Description:"/>
                             <h:outputText value="#{story2Controller.story.description}"/>
 
