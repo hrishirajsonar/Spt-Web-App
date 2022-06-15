@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/mavenproject4/layout.xhtml">
+    <ui:define name="Center">
+        <style type="text/css">
+            .panel {
+                text-align: left;
+                text-decoration: overline;
+                color: #a2f05d !important;
+            }
+        </style>
+        <div>
+
+
+            <p:panel header="Stories by me" styleClass="panel">
+
+                <p:panelGrid columns="6">
+
+                    <p:panel header="Overdue">
+                        <p:outputLabel >#{story2Controller.byMeOverdueSize()}</p:outputLabel>
+                    </p:panel>
+                    <p:panel header="Unstarted">
+                        <p:outputLabel >#{story2Controller.byMeUnstartedSize()}</p:outputLabel>
+                    </p:panel>
+
+                    <p:panel header="Started">
+                        <p:outputLabel >#{story2Controller.byMeStartedSize()}</p:outputLabel>
+                    </p:panel>
+
+                    <p:panel header="Finished">
+                        <p:outputLabel>#{story2Controller.byMeFinishedSize()}</p:outputLabel>
+                    </p:panel>
+
+                    <p:panel header="Delivered">
+                        <p:outputLabel>#{story2Controller.byMeDeliveredSize()}</p:outputLabel>
+                    </p:panel>
+
+                    <p:panel header="Accepted">
+                        <p:outputLabel>#{story2Controller.byMeAcceptedSize()}</p:outputLabel>
+                    </p:panel>
+                </p:panelGrid>
+            </p:panel>
+
+            <p:panel header="Stories for me" styleClass="panel">
+                <p:tabView dynamic="true">
+                    <p:tab title="Development">
+                        <p:panelGrid columns="6">
+                            <p:panel header="Overdue">
+                                <p:outputLabel >#{story2Controller.forMeDevOverdueSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Unstarted">
+                                <p:outputLabel >#{story2Controller.forMeDevUnstartedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Started">
+                                <p:outputLabel >#{story2Controller.forMeDevStartedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Finished">
+                                <p:outputLabel>#{story2Controller.forMeDevFinishedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Delivered">
+                                <p:outputLabel>#{story2Controller.forMeDevDeliveredSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Accepted">
+                                <p:outputLabel>#{story2Controller.forMeDevAcceptedSize()}</p:outputLabel>
+                            </p:panel>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Review">
+                        <p:panelGrid columns="6">
+                            <p:panel header="Overdue">
+                                <p:outputLabel >#{story2Controller.forMeRevOverdueSize()}</p:outputLabel>
+                            </p:panel>
+                            <p:panel header="Unstarted">
+                                <p:outputLabel >#{story2Controller.forMeRevUnstartedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Started">
+                                <p:outputLabel >#{story2Controller.forMeRevStartedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Finished">
+                                <p:outputLabel>#{story2Controller.forMeRevFinishedSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Delivered">
+                                <p:outputLabel>#{story2Controller.forMeRevDeliveredSize()}</p:outputLabel>
+                            </p:panel>
+
+                            <p:panel header="Accepted">
+                                <p:outputLabel>#{story2Controller.forMeRevAcceptedSize()}</p:outputLabel>
+                            </p:panel>
+                        </p:panelGrid>
+                    </p:tab>
+                </p:tabView>
+
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

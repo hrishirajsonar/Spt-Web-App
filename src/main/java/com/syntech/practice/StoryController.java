@@ -5,6 +5,7 @@
  */
 package com.syntech.practice;
 
+import com.syntech.mavenproject4.Review;
 import com.syntech.mavenproject4.StoryRepository;
 import com.syntech.mavenproject4.Story;
 import java.io.Serializable;
@@ -23,7 +24,16 @@ public class StoryController implements Serializable {
 
     private Story story;
 //    private List<Story> storyList;
+    private Review review;
 
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+    
     private String result;
 
     @Inject
@@ -76,11 +86,10 @@ public class StoryController implements Serializable {
         sr.persistStory(story);
 //        story = new Story();
     }
-    
+
 //    public void checkFind(){
 //        Story sty = sr.find(100);
 //    }
-
 //    public void findAndRemoveById() {
 //        story = sr.getEntityManager().find(Story.class, 1);
 //        

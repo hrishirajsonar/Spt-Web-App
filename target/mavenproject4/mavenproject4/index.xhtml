@@ -13,13 +13,14 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/mavenproject4/layout.xhtml">
     <ui:define name="Center">
+        <h:head>
+            <style type="text/css">
+                .cheap {
+                    background-color: #a2f05d !important;
 
-        <style type="text/css">
-            .cheap {
-                background-color: #a2f05d !important;
-                
-            }
-        </style>
+                }
+            </style>
+        </h:head>
         <div class="card">
             <h:form id="form">
                 <h:panelGrid>
@@ -27,7 +28,7 @@ and open the template in the editor.
                 </h:panelGrid>
 
                 <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;" paginator="true" rows="10" paginatorPosition="bottom"
-                             selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" rowStyleClass="#{s.status eq 'Completed' ? 'cheap' : null}">
+                             selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
                     <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":form:storyDetail"
                             oncomplete="PF('storyDialog').show()"/>
                     <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}" width="60px">
