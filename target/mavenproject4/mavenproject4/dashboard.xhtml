@@ -15,9 +15,9 @@ and open the template in the editor.
     <ui:define name="Center">
         <style type="text/css">
             .panel {
-                text-align: left;
                 text-decoration: overline;
                 color: #a2f05d !important;
+                width: 1200px;
             }
         </style>
         <div>
@@ -25,31 +25,31 @@ and open the template in the editor.
 
             <p:panel header="Stories by me" styleClass="panel">
 
-                <p:panelGrid columns="6">
+                <h:panelGrid columns="6" style="border: none" cellpadding="4px">
 
-                    <p:panel header="Overdue">
+                    <p:panel header="Overdue" style="width: 100px; height: 100px">
                         <p:outputLabel >#{story2Controller.byMeOverdueSize()}</p:outputLabel>
                     </p:panel>
-                    <p:panel header="Unstarted">
+                    <p:panel header="Unstarted" style="width: 100px; height: 100px">
                         <p:outputLabel >#{story2Controller.byMeUnstartedSize()}</p:outputLabel>
                     </p:panel>
 
-                    <p:panel header="Started">
+                    <p:panel header="Started" style="width: 100px; height: 100px">
                         <p:outputLabel >#{story2Controller.byMeStartedSize()}</p:outputLabel>
                     </p:panel>
 
-                    <p:panel header="Finished">
+                    <p:panel header="Finished" style="width: 100px; height: 100px">
                         <p:outputLabel>#{story2Controller.byMeFinishedSize()}</p:outputLabel>
                     </p:panel>
 
-                    <p:panel header="Delivered">
+                    <p:panel header="Delivered" style="width: 100px; height: 100px">
                         <p:outputLabel>#{story2Controller.byMeDeliveredSize()}</p:outputLabel>
                     </p:panel>
 
-                    <p:panel header="Accepted">
+                    <p:panel header="Accepted" style="width: 100px; height: 100px">
                         <p:outputLabel>#{story2Controller.byMeAcceptedSize()}</p:outputLabel>
                     </p:panel>
-                </p:panelGrid>
+                </h:panelGrid>
             </p:panel>
 
             <p:panel header="Stories for me" styleClass="panel">

@@ -25,7 +25,9 @@ and open the template in the editor.
 
             <h:panelGrid columns="2">
                 <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">STORIES YOU CREATED</h2>
-                <p:commandButton icon="pi pi-plus" oncomplete="PF('sample').show();" value="Add New Story" update="@this :frm_addStory" />
+                <p:commandButton icon="pi pi-plus" oncomplete="PF('sample').show();" 
+                                 actionListener="#{story2Controller.beforeAddStory()}"
+                                 value="Add New Story" update="@this :frm_addStory" />
             </h:panelGrid>
 
 
@@ -169,9 +171,12 @@ and open the template in the editor.
                         </p:selectOneMenu>
 
                         <p:commandButton oncomplete="PF('wv1').show();" icon="pi pi-users" 
-                                         actionListener="#{story2Controller.addNewReviewer()}"
-                                         update="frm_add2Reviews"
-                                         value="2"/>
+                                         actionListener="#{story2Controller.beforeAddReview()}"
+                                         update="frm_add2Reviews" resetValues="true"
+                                         value="2">
+                            <p:ajax update="@this" process="@this" />
+                        </p:commandButton>
+
                     </h:panelGrid>
 
                     <p:outputLabel for="dpDeadline" value="Deadline" />
@@ -185,8 +190,9 @@ and open the template in the editor.
                         <p:ajax process="@this"/>
                     </p:inputTextarea>
 
-                    <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
+                    <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form :frm_stories:dt2 :frm_stories:growl "  />
                 </h:panelGrid>
+                <p:outputLabel id="reviews_ol" value="#{story2Controller.reviewerNames()}" />
 
             </h:form>
         </p:dialog>
@@ -250,20 +256,23 @@ and open the template in the editor.
                 <p:panelGrid columns="2">
 
                     <p:outputLabel id="rev1Reviewer" value="Reviewer" />
-                    <p:selectOneMenu id="sel_one_firstReview" label="First Reviewer" value="#{story2Controller.review.reviewer}" immediate="true" >
-                        <p:ajax process="@this"/>
+                    <p:selectOneMenu id="sel_one_firstReview" label="First Reviewer" 
+                                     value="#{story2Controller.review.reviewer}"  >
+                        <p:ajax process="@this" update="@this"/>
                         <f:selectItem itemLabel="Select Reviewer" itemValue="#{null}" noSelectionOption="true"/>
-                        <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
+                        <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}"
+                                       itemValue="#{m.username}"/>
                     </p:selectOneMenu>
-                    
+
                     <p:outputLabel id="rev1Description" value="Review Comment" />
                     <p:inputTextarea rows="3" cols="24" id="rev1DescriptionIn" value="#{story2Controller.review.reviewComment}">
                         <p:ajax process="@this"/>
                     </p:inputTextarea>
                 </p:panelGrid>
-                <p:commandButton id="addfirst1" icon="pi pi-plus" action="#{story2Controller.addToList()}" process="@this" oncomplete="PF('wv1').hide();" />
                 
-
+                <p:commandButton id="addfirst1" icon="pi pi-plus" action="#{story2Controller.addToList()}" 
+                                 process="@this" oncomplete="PF('wv1').hide();" 
+                                 update=":frm_addStory:reviews_ol @this :frm_add2Reviews"/>
 
             </h:form>
         </p:dialog>
