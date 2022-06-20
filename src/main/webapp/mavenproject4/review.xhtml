@@ -55,9 +55,9 @@ and open the template in the editor.
                         #{s.developer}
                 </p:column>
 
-                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
-                    <f:facet name="header">Reviewer</f:facet>   	
-                        #{s.reviewer}
+                <p:column headerText="Reviewer">
+                    <f:facet name="header">Reviewers</f:facet>   	
+                        #{story2Controller.reviewerNames(s)}
                 </p:column>
 
                 <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
@@ -99,8 +99,8 @@ and open the template in the editor.
                         <h:outputText value="Developer:"/>
                         <h:outputText value="#{story2Controller.story.developer}"/>
 
-                        <h:outputText value="Reviewer:"/>
-                        <h:outputText value="#{story2Controller.story.reviewer}"/>
+<!--                        <h:outputText value="Reviewer:"/>
+                        <h:outputText value="{story2Controller.story.reviews}"/>-->
                         
                         <h:outputText value="Deadline:"/>
                         <h:outputText value="#{story2Controller.story.deadline}"/>

@@ -61,7 +61,7 @@ public class StoryController implements Serializable {
     }
 
     public void submit() {
-        result = "Reviewer:" + story.getReviewer();
+//        result = "Reviewer:" + story.getReviewer();
         System.out.println(result);
     }
 

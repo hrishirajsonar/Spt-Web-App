@@ -61,10 +61,10 @@ and open the template in the editor.
                         #{s.developer}
                 </p:column>
 
-                <p:column field="reviewer" headerText="Reviewer" sortBy="#{s.reviewer}" filterBy="#{s.reviewer}">
+<!--                <p:column field="reviewer" headerText="Reviewer" sortBy="{s.reviewer}" filterBy="{s.reviewer}">
                     <f:facet name="header">Reviewer</f:facet>   	
-                        #{s.reviewer}
-                </p:column>
+                        {s.reviewer}
+                </p:column>-->
 
                 <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
                     <f:facet name="header">Requestor</f:facet>   	
@@ -111,8 +111,8 @@ and open the template in the editor.
                         <h:outputText value="Developer:"/>
                         <h:outputText value="#{story2Controller.story.developer}"/>
 
-                        <h:outputText value="Reviewer:"/>
-                        <h:outputText value="#{story2Controller.story.reviewer}"/>
+<!--                        <h:outputText value="Reviewer:"/>
+                        <h:outputText value="{story2Controller.story.reviewer}"/>-->
 
                         <h:outputText value="Deadline:"/>
                         <h:outputText value="#{story2Controller.story.deadline}"/>
@@ -163,12 +163,12 @@ and open the template in the editor.
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Reviewer(s)" />
-                    <h:panelGrid columns ="3">
-                        <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="#{story2Controller.story.reviewer}" required="true" requiredMessage="Reviewer is required">
+                    <h:panelGrid columns ="2">
+<!--                        <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}" required="true" requiredMessage="Reviewer is required">
                             <p:ajax process="@this"/>
-                            <f:selectItem itemLabel="Select Reviewer" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
-                        </p:selectOneMenu>
+                            <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
+                            <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
+                        </p:selectOneMenu>-->
 
                         <p:commandButton oncomplete="PF('wv1').show();" icon="pi pi-users" 
                                          actionListener="#{story2Controller.beforeAddReview()}"
@@ -192,7 +192,9 @@ and open the template in the editor.
 
                     <p:commandButton value="Add story" action="#{story2Controller.persistStory()}" update="@form :frm_stories:dt2 :frm_stories:growl "  />
                 </h:panelGrid>
+
                 <p:outputLabel id="reviews_ol" value="#{story2Controller.reviewerNames()}" />
+
 
             </h:form>
         </p:dialog>
@@ -237,11 +239,11 @@ and open the template in the editor.
                         <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Reviewer" />
-                    <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="#{story2Controller.story.reviewer}">
-                        <f:selectItem itemLabel="Select Reviewer" itemValue="#{null}" noSelectionOption="true"/>
-                        <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
-                    </p:selectOneMenu>
+<!--                    <p:outputLabel value="Reviewer" />
+                    <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}">
+                        <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
+                        <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
+                    </p:selectOneMenu>-->
 
                     <p:commandButton value="Edit story" action="#{story2Controller.editStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
                 </h:panelGrid>
@@ -269,7 +271,7 @@ and open the template in the editor.
                         <p:ajax process="@this"/>
                     </p:inputTextarea>
                 </p:panelGrid>
-                
+
                 <p:commandButton id="addfirst1" icon="pi pi-plus" action="#{story2Controller.addToList()}" 
                                  process="@this" oncomplete="PF('wv1').hide();" 
                                  update=":frm_addStory:reviews_ol @this :frm_add2Reviews"/>
