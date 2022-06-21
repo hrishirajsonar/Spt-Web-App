@@ -24,6 +24,11 @@ and open the template in the editor.
 
 
             <p:panel header="Stories by me" styleClass="panel">
+                <f:facet name="header">
+                    <p:panelGrid columns="7"  style="float: left;">
+                        <h:outputText value="Stories by me"/>
+                    </p:panelGrid>
+                </f:facet>
 
                 <h:panelGrid columns="6" style="border: none" cellpadding="4px">
 
@@ -53,6 +58,11 @@ and open the template in the editor.
             </p:panel>
 
             <p:panel header="Stories for me" styleClass="panel">
+                <f:facet name="header">
+                    <p:panelGrid columns="7"  style="float: left;">
+                        <h:outputText value="Stories for me"/>
+                    </p:panelGrid>
+                </f:facet>
                 <p:tabView dynamic="true">
                     <p:tab title="Development">
                         <p:panelGrid columns="6">

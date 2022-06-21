@@ -20,98 +20,105 @@ and open the template in the editor.
 
             }
         </style>
-        <h:form id="frm_stories">
-            <h:panelGrid>
-                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">STORIES ASSIGNED TO YOU FOR REVIEW</h2>
-            </h:panelGrid>
 
-            <p:dataTable id="dt" value="#{story2Controller.reviewerStoryList}" var="s" style="margin:14px 0px;"
-                         paginator="true" rows="10" paginatorPosition="bottom" selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" 
-                         rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
-                <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":frm_stories:storyDetail"
-                        oncomplete="PF('storyDialog').show()"/>
-                <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
-                    <f:facet name="header">Id</f:facet>   	
-                        #{s.id}
-                </p:column>
+        <p:panel  header="It will be overwritten">
+            
+            <f:facet name="header">
+                <p:panelGrid columns="7" style="float: left;">
+                    <h:outputText value="Stories Assigned to me for Review"/>
+                </p:panelGrid>
+            </f:facet>
 
-                <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
-                    <f:facet name="header">Story Name</f:facet>   	
-                        #{s.storyName}
-                </p:column>
+            <h:form id="frm_stories">
 
-                <p:column field="status" headerText="Status" groupRow="true" sortBy="#{s.status}" filterBy="#{s.status}">
-                    <f:facet name="header">Status</f:facet>   	
-                        #{s.status}
-                </p:column>
+                <p:dataTable id="dt" value="#{story2Controller.reviewerStoryList}" var="s" 
+                             paginator="true" rows="10" paginatorPosition="bottom" selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" 
+                             rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
+                    <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":frm_stories:storyDetail"
+                            oncomplete="PF('storyDialog').show()"/>
+                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
+                        <f:facet name="header">Id</f:facet>   	
+                            #{s.id}
+                    </p:column>
 
-                <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
-                    <f:facet name="header">Points</f:facet>   	
-                        #{s.points}
-                </p:column>
+                    <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                        <f:facet name="header">Story Name</f:facet>   	
+                            #{s.storyName}
+                    </p:column>
 
-                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
-                    <f:facet name="header">Developer</f:facet>   	
-                        #{s.developer}
-                </p:column>
+                    <p:column field="status" headerText="Status" groupRow="true" sortBy="#{s.status}" filterBy="#{s.status}">
+                        <f:facet name="header">Status</f:facet>   	
+                            #{s.status}
+                    </p:column>
 
-                <p:column headerText="Reviewer">
-                    <f:facet name="header">Reviewers</f:facet>   	
-                        #{story2Controller.reviewerNames(s)}
-                </p:column>
+                    <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                        <f:facet name="header">Points</f:facet>   	
+                            #{s.points}
+                    </p:column>
 
-                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
-                    <f:facet name="header">Requestor</f:facet>   	
-                        #{s.requestor}
-                </p:column>
+                    <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
+                        <f:facet name="header">Developer</f:facet>   	
+                            #{s.developer}
+                    </p:column>
 
-                <p:column headerText="Action" id="action" width="180px">
-                    <panelGrid columns="2">
-                        <p:commandButton id = "btn_accept" actionListener="#{story2Controller.beforeEdit(s)}" style="margin-right: 10px" action="#{story2Controller.acceptStory(s)}"
-                                         value="Accept" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
-                        <p:commandButton id = "btn_reject" actionListener="#{story2Controller.beforeEdit(s)}" action="#{story2Controller.rejectStory(s)}"
-                                         value="Reject" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
-                    </panelGrid>
-                </p:column>
+                    <p:column headerText="Reviewer">
+                        <f:facet name="header">Reviewers</f:facet>   	
+                            #{story2Controller.reviewerNames(s)}
+                    </p:column>
 
-            </p:dataTable>
+                    <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
+                        <f:facet name="header">Requestor</f:facet>   	
+                            #{s.requestor}
+                    </p:column>
 
-            <p:dialog header="Story Detail" widgetVar="storyDialog" modal="false" showEffect="fade"
-                      hideEffect="fade" resizable="false">
-                <p:outputPanel id="storyDetail" style="text-align:center;">
-                    <p:panelGrid columns="2" rendered="#{not empty story2Controller.story}"
-                                 columnClasses="label,value">
-                        <h:outputText value="Name:"/>
-                        <h:outputText value="#{story2Controller.story.storyName}"/>
+                    <p:column headerText="Action" id="action" width="180px">
+                        <panelGrid columns="2">
+                            <p:commandButton id = "btn_accept" actionListener="#{story2Controller.beforeEdit(s)}" style="margin-right: 10px" action="#{story2Controller.acceptStory(s)}"
+                                             value="Accept" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
+                            <p:commandButton id = "btn_reject" actionListener="#{story2Controller.beforeEdit(s)}" action="#{story2Controller.rejectStory(s)}"
+                                             value="Reject" rendered = "#{story2Controller.renderButtonRev(s)}" update="@this :frm_stories:dt" />
+                        </panelGrid>
+                    </p:column>
 
-                        <h:outputText value="Type:"/>
-                        <h:outputText value="#{story2Controller.story.storyType}"/>
+                </p:dataTable>
 
-                        <h:outputText value="Status:"/>
-                        <h:outputText value="#{story2Controller.story.status}"/>
+                <p:dialog header="Story Detail" widgetVar="storyDialog" modal="false" showEffect="fade"
+                          hideEffect="fade" resizable="false">
+                    <p:outputPanel id="storyDetail" style="text-align:center;">
+                        <p:panelGrid columns="2" rendered="#{not empty story2Controller.story}"
+                                     columnClasses="label,value">
+                            <h:outputText value="Name:"/>
+                            <h:outputText value="#{story2Controller.story.storyName}"/>
 
-                        <h:outputText value="Points:"/>
-                        <h:outputText value="#{story2Controller.story.points}"/>
+                            <h:outputText value="Type:"/>
+                            <h:outputText value="#{story2Controller.story.storyType}"/>
 
-                        <h:outputText value="Requestor:"/>
-                        <h:outputText value="#{story2Controller.story.requestor}"/>
+                            <h:outputText value="Status:"/>
+                            <h:outputText value="#{story2Controller.story.status}"/>
 
-                        <h:outputText value="Developer:"/>
-                        <h:outputText value="#{story2Controller.story.developer}"/>
+                            <h:outputText value="Points:"/>
+                            <h:outputText value="#{story2Controller.story.points}"/>
 
-<!--                        <h:outputText value="Reviewer:"/>
-                        <h:outputText value="{story2Controller.story.reviews}"/>-->
-                        
-                        <h:outputText value="Deadline:"/>
-                        <h:outputText value="#{story2Controller.story.deadline}"/>
+                            <h:outputText value="Requestor:"/>
+                            <h:outputText value="#{story2Controller.story.requestor}"/>
 
-                        <h:outputText value="Description:"/>
-                        <h:outputText value="#{story2Controller.story.description}"/>
+                            <h:outputText value="Developer:"/>
+                            <h:outputText value="#{story2Controller.story.developer}"/>
 
-                    </p:panelGrid>
-                </p:outputPanel>
+                            <!--                        <h:outputText value="Reviewer:"/>
+                                                    <h:outputText value="{story2Controller.story.reviews}"/>-->
 
-            </p:dialog>
-        </h:form>
+                            <h:outputText value="Deadline:"/>
+                            <h:outputText value="#{story2Controller.story.deadline}"/>
+
+                            <h:outputText value="Description:"/>
+                            <h:outputText value="#{story2Controller.story.description}"/>
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+
+                </p:dialog>
+            </h:form>
+        </p:panel>
     </ui:define>
 </ui:composition>

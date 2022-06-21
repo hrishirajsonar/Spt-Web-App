@@ -19,15 +19,19 @@ and open the template in the editor.
                     background-color: #a2f05d !important;
 
                 }
+                
             </style>
         </h:head>
-        <div class="card">
+        <p:panel header="Current Stories">
+            <f:facet name="header">
+                <p:panelGrid columns="7"  style="float: left;">
+                    <h:outputText value="Current Stories"/>
+                </p:panelGrid>
+            </f:facet>
+            
             <h:form id="form">
-                <h:panelGrid>
-                    <h2 style="font-weight:normal; color: #454545; margin: 14px">CURRENT STORIES</h2>
-                </h:panelGrid>
 
-                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" style="margin:14px 0px;" paginator="true" rows="10" paginatorPosition="bottom"
+                <p:dataTable id="dt2" value="#{story2Controller.storyList}" var="s" paginator="true" rows="10" paginatorPosition="bottom"
                              selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
                     <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":form:storyDetail"
                             oncomplete="PF('storyDialog').show()"/>
@@ -88,6 +92,6 @@ and open the template in the editor.
 
                 </p:dialog>
             </h:form>
-        </div>
+        </p:panel>
     </ui:define>
 </ui:composition>

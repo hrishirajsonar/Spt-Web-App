@@ -20,112 +20,118 @@ and open the template in the editor.
 
             }
         </style>
-        <h:form id="frm_stories">
-            <p:growl id="growl" showDetail="true" />
+        <p:panel  header="It will be overwritten">
+            
+            <f:facet name="header">
+                <p:panelGrid columns="7" style="float: left;">
+                    <h:outputText value="Stories by me"/>
+                </p:panelGrid>
+                <panelGrid columns="7" style="float: right;">
+                    <p:commandButton icon="pi pi-plus" oncomplete="PF('sample').show();" 
+                                     actionListener="#{story2Controller.beforeAddStory()}"
+                                     value="Add New Story" update="@this :frm_addStory" />
+                </panelGrid>
+            </f:facet>
+            
+            <h:form id="frm_stories">
+                <p:growl id="growl" showDetail="true" />
 
-            <h:panelGrid columns="2">
-                <h2 style="font-weight:normal; color: #454545; margin: 0px 14px">STORIES YOU CREATED</h2>
-                <p:commandButton icon="pi pi-plus" oncomplete="PF('sample').show();" 
-                                 actionListener="#{story2Controller.beforeAddStory()}"
-                                 value="Add New Story" update="@this :frm_addStory" />
-            </h:panelGrid>
+                <p:dataTable id="dt2" value="#{story2Controller.requestorStoryList}" var="s"
+                             paginator="true" rows="10" paginatorPosition="bottom" selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" 
+                             rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
+                    <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":frm_stories:storyDetail"
+                            oncomplete="PF('storyDialog').show()"/>
+                    <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
+                        <f:facet name="header">Id</f:facet>   	
+                            #{s.id}
+                    </p:column>
 
+                    <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
+                        <f:facet name="header">Story Name</f:facet>   	
+                            #{s.storyName}
+                    </p:column>
 
-            <p:dataTable id="dt2" value="#{story2Controller.requestorStoryList}" var="s" style="margin:14px 0px;"
-                         paginator="true" rows="10" paginatorPosition="bottom" selectionMode="single" selection="#{story2Controller.story}" rowKey="#{s.id}" 
-                         rowStyleClass="#{s.status eq 'Accepted' ? 'cheap' : null}">
-                <p:ajax event="rowSelect" listener="#{story2Controller.onRowSelect}" update=":frm_stories:storyDetail"
-                        oncomplete="PF('storyDialog').show()"/>
-                <p:column field="id" headerText="Id" sortBy="#{s.id}" filterBy="#{s.id}">
-                    <f:facet name="header">Id</f:facet>   	
-                        #{s.id}
-                </p:column>
+                    <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
+                        <f:facet name="header">Status</f:facet>   	
+                            #{s.status}
+                    </p:column>
 
-                <p:column field="storyName" headerText="Story Name" sortBy="#{s.storyName}" filterBy="#{s.storyName}">
-                    <f:facet name="header">Story Name</f:facet>   	
-                        #{s.storyName}
-                </p:column>
+                    <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
+                        <f:facet name="header">Points</f:facet>   	
+                            #{s.points}
+                    </p:column>
 
-                <p:column field="status" headerText="Status" sortBy="#{s.status}" filterBy="#{s.status}">
-                    <f:facet name="header">Status</f:facet>   	
-                        #{s.status}
-                </p:column>
+                    <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
+                        <f:facet name="header">Developer</f:facet>   	
+                            #{s.developer}
+                    </p:column>
 
-                <p:column field="points" headerText="Points" sortBy="#{s.points}" filterBy="#{s.points}">
-                    <f:facet name="header">Points</f:facet>   	
-                        #{s.points}
-                </p:column>
+                    <!--                <p:column field="reviewer" headerText="Reviewer" sortBy="{s.reviewer}" filterBy="{s.reviewer}">
+                                        <f:facet name="header">Reviewer</f:facet>   	
+                                            {s.reviewer}
+                                    </p:column>-->
 
-                <p:column field="developer" headerText="Developer" sortBy="#{s.developer}" filterBy="#{s.developer}">
-                    <f:facet name="header">Developer</f:facet>   	
-                        #{s.developer}
-                </p:column>
+                    <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
+                        <f:facet name="header">Requestor</f:facet>   	
+                            #{s.requestor}
+                    </p:column>
 
-<!--                <p:column field="reviewer" headerText="Reviewer" sortBy="{s.reviewer}" filterBy="{s.reviewer}">
-                    <f:facet name="header">Reviewer</f:facet>   	
-                        {s.reviewer}
-                </p:column>-->
+                    <p:column field="deadline" headerText="Deadline" filterBy="#{s.deadline}">
+                        <f:facet name="header">Deadline</f:facet>   	
+                            #{s.deadline}
+                    </p:column>
 
-                <p:column field="requestor" headerText="Requestor" sortBy="#{s.requestor}" filterBy="#{s.requestor}">
-                    <f:facet name="header">Requestor</f:facet>   	
-                        #{s.requestor}
-                </p:column>
+                    <p:column headerText="Action" id="action">
+                        <p:commandButton id = "btn_edit" actionListener="#{story2Controller.beforeEdit(s)}" oncomplete="PF('sample2').show();" icon="pi pi-pencil" style="margin-right: 10px;" update="@this :frm_editStory @form :frm_addStory" />
+                        <p:commandButton id = "btn_delete" icon="pi pi-trash" actionListener="#{story2Controller.deleteStory(s.id)}" update="@form :frm_stories:dt2 :frm_stories:growl">
+                            <p:confirm header="Confirmation" message="Do you want to delete this story?" icon="pi pi-info-circle"/>
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                        </p:confirmDialog>
+                    </p:column>
+                </p:dataTable>
 
-                <p:column field="deadline" headerText="Deadline" filterBy="#{s.deadline}">
-                    <f:facet name="header">Deadline</f:facet>   	
-                        #{s.deadline}
-                </p:column>
+                <p:dialog header="Story Detail" widgetVar="storyDialog" modal="false" showEffect="fade"
+                          hideEffect="fade" resizable="false">
+                    <p:outputPanel id="storyDetail" style="text-align:center;">
+                        <p:panelGrid columns="2" rendered="#{not empty story2Controller.story}"
+                                     columnClasses="label,value">
+                            <h:outputText value="Name:"/>
+                            <h:outputText value="#{story2Controller.story.storyName}"/>
 
-                <p:column headerText="Action" id="action">
-                    <p:commandButton id = "btn_edit" actionListener="#{story2Controller.beforeEdit(s)}" oncomplete="PF('sample2').show();" icon="pi pi-pencil" style="margin-right: 10px;" update="@this :frm_editStory @form :frm_addStory" />
-                    <p:commandButton id = "btn_delete" icon="pi pi-trash" actionListener="#{story2Controller.deleteStory(s.id)}" update="@form :frm_stories:dt2 :frm_stories:growl">
-                        <p:confirm header="Confirmation" message="Do you want to delete this story?" icon="pi pi-info-circle"/>
-                    </p:commandButton>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat" />
-                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
-                    </p:confirmDialog>
-                </p:column>
-            </p:dataTable>
+                            <h:outputText value="Type:"/>
+                            <h:outputText value="#{story2Controller.story.storyType}" />
 
-            <p:dialog header="Story Detail" widgetVar="storyDialog" modal="false" showEffect="fade"
-                      hideEffect="fade" resizable="false">
-                <p:outputPanel id="storyDetail" style="text-align:center;">
-                    <p:panelGrid columns="2" rendered="#{not empty story2Controller.story}"
-                                 columnClasses="label,value">
-                        <h:outputText value="Name:"/>
-                        <h:outputText value="#{story2Controller.story.storyName}"/>
+                            <h:outputText value="Status:"/>
+                            <h:outputText value="#{story2Controller.story.status}"/>
 
-                        <h:outputText value="Type:"/>
-                        <h:outputText value="#{story2Controller.story.storyType}" />
+                            <h:outputText value="Points:"/>
+                            <h:outputText value="#{story2Controller.story.points}"/>
 
-                        <h:outputText value="Status:"/>
-                        <h:outputText value="#{story2Controller.story.status}"/>
+                            <h:outputText value="Requestor:"/>
+                            <h:outputText value="#{story2Controller.story.requestor}"/>
 
-                        <h:outputText value="Points:"/>
-                        <h:outputText value="#{story2Controller.story.points}"/>
+                            <h:outputText value="Developer:"/>
+                            <h:outputText value="#{story2Controller.story.developer}"/>
 
-                        <h:outputText value="Requestor:"/>
-                        <h:outputText value="#{story2Controller.story.requestor}"/>
+                            <!--                        <h:outputText value="Reviewer:"/>
+                                                    <h:outputText value="{story2Controller.story.reviewer}"/>-->
 
-                        <h:outputText value="Developer:"/>
-                        <h:outputText value="#{story2Controller.story.developer}"/>
+                            <h:outputText value="Deadline:"/>
+                            <h:outputText value="#{story2Controller.story.deadline}"/>
 
-<!--                        <h:outputText value="Reviewer:"/>
-                        <h:outputText value="{story2Controller.story.reviewer}"/>-->
+                            <h:outputText value="Description:"/>
+                            <h:outputText value="#{story2Controller.story.description}"/>
 
-                        <h:outputText value="Deadline:"/>
-                        <h:outputText value="#{story2Controller.story.deadline}"/>
+                        </p:panelGrid>
+                    </p:outputPanel>
 
-                        <h:outputText value="Description:"/>
-                        <h:outputText value="#{story2Controller.story.description}"/>
+                </p:dialog>
 
-                    </p:panelGrid>
-                </p:outputPanel>
-
-            </p:dialog>
-
-        </h:form>
+            </h:form>
+        </p:panel>
 
         <p:dialog header="Add New Story" widgetVar="sample" id="dlg_addStory">
             <h:form id="frm_addStory">
@@ -164,11 +170,11 @@ and open the template in the editor.
 
                     <p:outputLabel value="Reviewer(s)" />
                     <h:panelGrid columns ="2">
-<!--                        <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}" required="true" requiredMessage="Reviewer is required">
-                            <p:ajax process="@this"/>
-                            <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
-                            <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
-                        </p:selectOneMenu>-->
+                        <!--                        <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}" required="true" requiredMessage="Reviewer is required">
+                                                    <p:ajax process="@this"/>
+                                                    <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
+                                                </p:selectOneMenu>-->
 
                         <p:commandButton oncomplete="PF('wv1').show();" icon="pi pi-users" 
                                          actionListener="#{story2Controller.beforeAddReview()}"
@@ -221,6 +227,7 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Started" itemValue= "Started" />
                         <f:selectItem itemLabel="Finished" itemValue= "Finished" />
                         <f:selectItem itemLabel="Delivered" itemValue= "Delivered" />
+                        <!--<f:selectItem itemLabel="Being Reviewed" itemValue= "Being Reviewed" />-->
                         <f:selectItem itemLabel="Accepted" itemValue= "Accepted" />
                     </p:selectOneMenu>  
 
@@ -239,11 +246,11 @@ and open the template in the editor.
                         <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                     </p:selectOneMenu>
 
-<!--                    <p:outputLabel value="Reviewer" />
-                    <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}">
-                        <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
-                        <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
-                    </p:selectOneMenu>-->
+                    <!--                    <p:outputLabel value="Reviewer" />
+                                        <p:selectOneMenu id="sel_one_rev" label="Select Reviewer" value="{story2Controller.story.reviewer}">
+                                            <f:selectItem itemLabel="Select Reviewer" itemValue="{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="{employeeController.employeeList}" var="m" itemLabel="{m.username}" itemValue="{m.username}"/>
+                                        </p:selectOneMenu>-->
 
                     <p:commandButton value="Edit story" action="#{story2Controller.editStory()}" update="@form :frm_stories:dt2 :frm_stories:growl" />
                 </h:panelGrid>
