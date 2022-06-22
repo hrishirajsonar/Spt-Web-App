@@ -25,10 +25,14 @@ and open the template in the editor.
                     <p:growl id="growl" showDetail="true" />
                     <h:panelGrid columns ="2" styleClass="ui-panelgrid">
                         <p:outputLabel value = "Username"/>
+                        <!--<p:inputText value="{employeeController.employee.username}"/>-->
+                        
                         <p:selectOneMenu id="sel_one_user" value="#{employeeController.employee.username}" required="true" requiredMessage="Username is required">
                             <f:selectItem itemLabel="Select User" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{employeeController.employeeList}" var="m" itemLabel="#{m.username}" itemValue="#{m.username}"/>
                         </p:selectOneMenu>
+                        
+                        
                         <p:outputLabel value = "Password"/>
                         <p:password id="inp_password" value="#{employeeController.employee.userpassword}" toggleMask="true" redisplay="true"
                                     required="true" requiredMessage="Password is required" label="Password" title="Password" />
