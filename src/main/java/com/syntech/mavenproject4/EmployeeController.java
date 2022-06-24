@@ -11,10 +11,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.syntech.bean.UserBean;
 import com.syntech.util.MessageUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -69,6 +73,9 @@ public class EmployeeController implements Serializable {
 
     @Inject
     private MessageUtil messageUtil;
+    
+    @Inject
+    private UserBean userBean;
 
     @PostConstruct
     public void init() {
@@ -116,6 +123,13 @@ public class EmployeeController implements Serializable {
         System.out.println("password" + hashString(employee.getUserpassword()));
 
         if (isHashingMatched(employee.getUserpassword(), savedPassword)) {
+//            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+//            
+//            Map<String, Object> appMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
+//            appMap.put(e.getEmployeeId().toString(), session);
+//            
+//            userBean.setUser(e);
+            
             setLoggedInUser(e);
             return "/faces/mavenproject4/dashboard.xhtml?faces-redirect=true";
         }
@@ -131,8 +145,10 @@ public class EmployeeController implements Serializable {
     }
     
     public String logout() {
-        employee = new Employee();
-        loggedInUser = new Employee();
+//        employee = new Employee();
+//        loggedInUser = new Employee();
+        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/faces/mavenproject4/login.xhtml?faces-redirect=true";
     }
 

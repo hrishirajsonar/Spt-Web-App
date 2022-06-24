@@ -47,7 +47,7 @@ public class StoryRestApi {
 
     @GET
     @Path("{id}")
-    public Response getEmployeeById(@PathParam("id") Long id) throws JsonProcessingException {
+    public Response getStoryById(@PathParam("id") Long id) throws JsonProcessingException {
         Story story = storyRepository.findById(id);
         if (story == null) {
             return RestResponse.responseBuilder("false", "404", " Story with id " + id + " not found", null);
@@ -58,4 +58,41 @@ public class StoryRestApi {
         return RestResponse.responseBuilder("true", "200", "Employee with id " + id + " found", str);
     }
 
+    @POST
+    public Response createStory(Story story) throws JsonProcessingException {
+        storyRepository.edit(story);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(story);
+
+        return RestResponse.responseBuilder("true", "201", "story created successfully", str);
+    }
+    
+    @DELETE
+    @Path("{id}")
+    public Response deleteStory(@PathParam("id") Long id) throws JsonProcessingException {
+        Story story = storyRepository.findById(id);
+        if (story == null) {
+            return RestResponse.responseBuilder("false", "404", " Story with id " + id + " not found", null);
+        }
+        storyRepository.delete(id);
+        return RestResponse.responseBuilder("true", "200", "Employee with id " + id + " deleted successfully", null);
+    }
+    
+    @PUT
+    @Path("{id}")
+    public Response updateStory(@PathParam("id") Long id, Story story) throws JsonProcessingException {
+        Story s = storyRepository.findById(id);
+        if (s == null) {
+            return RestResponse.responseBuilder("false", "404", " Story with id " + id + " not found", null);
+        }
+        if (!story.getId().equals(s.getId())) {
+            return RestResponse.responseBuilder("false", "404", " Employee id mismatch", null);
+        }
+        storyRepository.edit(story);
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(story);
+
+        return RestResponse.responseBuilder("true", "200", "employee updated successfully", str);
+    }
 }

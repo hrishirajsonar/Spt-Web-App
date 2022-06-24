@@ -6,6 +6,8 @@
 package com.syntech.mavenproject4;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -30,7 +32,7 @@ public class Activity implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long activityId;
 
 //    @ManyToOne(optional = false)
@@ -38,7 +40,6 @@ public class Activity implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "story_id", nullable = false)
-    @JsonBackReference
     private Story story;
 
     @Column(name = "type", nullable = true)
@@ -49,6 +50,7 @@ public class Activity implements Serializable {
 
     @Column(name = "activity_date_time", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date activityDateTime;
 
     public Activity() {

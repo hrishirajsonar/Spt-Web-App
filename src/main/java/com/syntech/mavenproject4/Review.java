@@ -32,6 +32,7 @@ public class Review implements Serializable {
     private Long reviewId;
 
 //    @JsonIgnore
+    
     @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "story_id", nullable = false)

@@ -1,5 +1,6 @@
 package com.syntech.mavenproject4;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
@@ -54,24 +55,30 @@ public class Story implements Serializable {
 //    private String reviewer;
     @Column(name = "deadline", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deadline;
 
     @Column(name = "description", nullable = true)
     private String description;
 
+    
 //    @JsonIgnore
+//    cascade = CascadeType.ALL
+    
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "story")
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "story")
     private List<Review> reviews = new ArrayList<>();
 
     private int reviewCount;
     private int reviewedCount;
     private String currentReviewer;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "story")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "story")
 //    @JsonIgnore
-    @JsonManagedReference
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "story")
+    
+//    @JsonManagedReference
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "story")
     private List<Activity> activities;
 
     public Story() {

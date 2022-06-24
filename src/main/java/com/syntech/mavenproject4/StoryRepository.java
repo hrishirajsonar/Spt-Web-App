@@ -28,6 +28,9 @@ public class StoryRepository {
     @PersistenceContext(unitName = "sptDS")
     private EntityManager em;
 
+    @Inject
+    ActivityRepository ar;
+    
     public void StoryRepository() {
     }
 
@@ -51,7 +54,12 @@ public class StoryRepository {
     }
 
     public void delete(long id) {
-        getEntityManager().remove(findById(id));
+        Story story = findById(id);
+        List<Activity> activities = story.getActivities();
+        for(Activity activity : activities){
+            ar.delete(activity.getActivityId());
+        }
+        getEntityManager().remove(story);
         getEntityManager().flush();
     }
 

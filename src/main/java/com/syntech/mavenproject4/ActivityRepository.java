@@ -35,4 +35,16 @@ public class ActivityRepository {
     public List<Activity> findAll() {
         return em.createQuery("SELECT a FROM Activity a", Activity.class).getResultList();
     }
+    
+    public Activity findById(long id) {
+        Activity activityFound = (Activity) em.find(Activity.class, id);
+        return activityFound;
+    }
+    
+    public void delete(long id) {
+        Activity activity = findById(id);
+        
+        getEntityManager().remove(activity);
+        getEntityManager().flush();
+    }
 }
